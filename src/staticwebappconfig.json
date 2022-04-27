@@ -1,0 +1,81 @@
+{
+    "auth": {
+      "identityProviders": {
+        "azureActiveDirectory": {
+          "userDetailsClaim": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name",
+          "registration": {
+            "openIdIssuer": "https://login.microsoftonline.com/7690c4df-e3d8-4329-85cb-172a551d474c",
+            "clientIdSettingName": "4336c5ef-7ece-49a6-a585-29bfcf2b7449",
+            "clientSecretSettingName": "578b3edd-0f25-4476-9725-cc2c4939e105"
+          }
+        }
+      }
+    },
+      "routes": [
+        {
+          "route": "/",
+          "allowedRoles": ["authenticated"]
+        },
+        {
+          "route": "/images/*",
+          "headers": {
+            "cache-control": "must-revalidate, max-age=15770000"
+          }
+        },
+        {
+          "route": "/api/*",
+          "methods": ["GET"],
+          "allowedRoles": ["registeredusers"]
+        },
+        {
+          "route": "/api/*",
+          "methods": ["PUT", "POST", "PATCH", "DELETE"],
+          "allowedRoles": ["administrator"]
+        },
+        {
+          "route": "/api/*",
+          "allowedRoles": ["authenticated"]
+        },
+        {
+          "route": "/login",
+          "rewrite": "/.auth/login/aad"
+        },
+        {
+          "route": "/.auth/login/twitter",
+          "statusCode": 404
+        },
+        {
+          "route": "/.auth/login/github",
+          "statusCode": 404
+        },
+        {
+          "route": "/logout",
+          "redirect": "/.auth/logout"
+        }
+      ],
+      "navigationFallback": {
+        "rewrite": "index.html",
+        "exclude": ["/images/*.{png,jpg,gif}", "/css/*"]
+      },
+      "responseOverrides": {
+        "400": {
+          "rewrite": "/invalid-invitation-error.html"
+        },
+        "401": {
+          "redirect": "/login",
+          "statusCode": 302
+        },
+        "403": {
+          "rewrite": "/403.html"
+        },
+        "404": {
+          "rewrite": "/404.html"
+        }
+      },
+      "globalHeaders": {
+        "content-security-policy": "img-src 'self' data:;default-src https: 'unsafe-eval' 'unsafe-inline'; object-src 'none'"
+      },
+      "mimeTypes": {
+        ".json": "text/json"
+      }
+    }
