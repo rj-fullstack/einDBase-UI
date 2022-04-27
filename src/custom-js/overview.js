@@ -1,5 +1,12 @@
 getMondayItems();
 
+async function getUserInfo() {
+    const response = await fetch('/.auth/me');
+    const payload = await response.json();
+    const { clientPrincipal } = payload;
+    return clientPrincipal;
+  }
+
 function getMondayItems(){
     var getMondayItemUrl = 'https://fullstack-functions.azurewebsites.net/api/getAll-hubspot-contacts?code=wuCz7MidPReBmgjOGaTF7K8haOmq2yIK9fiIsWTa6b4kOeNvmB6nyQ==&getAllMondayItems=true'
     $.ajax({
