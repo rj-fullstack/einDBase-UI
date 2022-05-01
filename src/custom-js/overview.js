@@ -8,7 +8,7 @@ async function getUserInfo() {
   }
 
 function getMondayItems(){
-    var getMondayItemUrl = 'https://fullstack-functions.azurewebsites.net/api/getAll-hubspot-contacts?code=wuCz7MidPReBmgjOGaTF7K8haOmq2yIK9fiIsWTa6b4kOeNvmB6nyQ==&getAllMondayItems=true'
+    var getMondayItemUrl = 'https://fullstack-functions.azurewebsites.net/api/getMondayItems?code=jQ2ZgiXOu_fOcKh99epZL_H0tx52jJCQNEabt6xNI7eHAzFuMFeUDw==&getAllMondayItems=true'
     $.ajax({
         type: "GET",
         url: getMondayItemUrl,
