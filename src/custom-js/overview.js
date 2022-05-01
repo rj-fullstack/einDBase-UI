@@ -44,7 +44,7 @@ function addMondayTableHeaders(allMondayItems){
     var removeDuplicatesBoardName = removeDuplicateArrayValues(boardName).sort()
 
     for(var x=0;x<removeDuplicatesBoardName.length;x++){
-        boardIdDropdown += '<li><a class="dropdown-item border-radius-md" href="javascript:;">'+removeDuplicatesBoardName[x]+'</a></li>'
+        boardIdDropdown += `<li><a class="dropdown-item border-radius-md" onclick="getMondayBoardItems('${removeDuplicatesBoardName[x].trim()}')">${removeDuplicatesBoardName[x].trim()}</a></li>`
     }
     $('#mondayBoardSelect').append(boardIdDropdown);
     addMondayTableItems(allMondayItems)
@@ -52,6 +52,7 @@ function addMondayTableHeaders(allMondayItems){
 
 function addMondayTableItems(allMondayItems){
     console.log(allMondayItems)
+    $('#mondayItemRows').html('');
     var mondayItemRow = '';
 
     for(var y=0;y<30;y++){
@@ -144,4 +145,23 @@ function addMondayTableItems(allMondayItems){
 
         $('#mondayItemRows').append(mondayItemRow);
     }
+}
+
+function getMondayBoardItems(boardName){
+    
+    var getMondayItemUrl = 'https://fullstack-functions.azurewebsites.net/api/getMondayItems?code=jQ2ZgiXOu_fOcKh99epZL_H0tx52jJCQNEabt6xNI7eHAzFuMFeUDw==&getItemonBoards='+encodeURIComponent(boardName)
+    $.ajax({
+        type: "GET",
+        url: getMondayItemUrl,
+        timeout: 60000,
+    success: function(mondayBoardItems) {
+        mondayBoardItems = JSON.parse(mondayBoardItems)
+        addMondayTableItems(mondayBoardItems)
+        //$('#dropdownTable').text(boardName)
+        document.getElementById("dropdownTable").innerText = boardName
+    },
+    error: function(err) {
+        console.log(err)
+    }
+    });
 }
