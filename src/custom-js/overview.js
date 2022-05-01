@@ -14,17 +14,11 @@ function getMondayItems(){
         url: getMondayItemUrl,
         timeout: 60000,
     success: function(allMondayItems) {
-        //console.log(allMondayItems)
         allMondayItems = JSON.parse(allMondayItems)
         addMondayTableHeaders(allMondayItems)
-        //$("#preloader").css("display", "none");
-        //goBacktoPRList();
     },
     error: function(err) {
         console.log(err)
-        // $('#labelofNotif').html('<i class="fas fa-exclamation-circle"></i>&nbspERROR')
-        // showPRAddSuccessNotif(JSON.stringify(err))
-        // $("#preloader").css("display", "none");
     }
     });
 }
@@ -142,9 +136,8 @@ function addMondayTableItems(allMondayItems){
               </td>
         </tr>
         `
-
-        $('#mondayItemRows').append(mondayItemRow);
     }
+    $('#mondayItemRows').append(mondayItemRow);
 }
 
 function getMondayBoardItems(boardName){
