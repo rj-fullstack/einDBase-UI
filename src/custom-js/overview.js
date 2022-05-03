@@ -92,7 +92,7 @@ function addMondayTableItems(allMondayItems){
                       <span class="text-xs font-weight-bold">${allMondayItems[y].BoardName}</span>
                       </td>
                       <td class="align-middle">
-                      <span class="text-xs font-weight-bold">${allMondayItems[y].Name}</span>
+                      <span class="text-xs font-weight-bold"><a href="https://fullstackadvisory.monday.com/boards/${allMondayItems[y].BoardID}/pulses/${allMondayItems[y].ItemID}" target="_blank">${allMondayItems[y].Name}</a></span>
                       </td>
 
                       <td class="align-middle">
