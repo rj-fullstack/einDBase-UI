@@ -45,11 +45,18 @@ function addMondayTableHeaders(allMondayItems){
 }
 
 function addMondayTableItems(allMondayItems){
-    console.log(allMondayItems)
-    $('#mondayItemRows').html('');
+    $(document).ready( function () {
+        $('#mondayTable').DataTable();
+    } );
+
+    $('#mondayTable').DataTable().clear();
+    $('#mondayTable').DataTable().destroy();
+    
+
+    //$('#mondayItemRows').html('');
     var mondayItemRow = '';
 
-    for(var y=0;y<30;y++){
+    for(var y=0;y<allMondayItems.length;y++){
         if(allMondayItems[y].People1 == null){
             allMondayItems[y].People1 = ''
         }
@@ -138,6 +145,7 @@ function addMondayTableItems(allMondayItems){
         `
     }
     $('#mondayItemRows').append(mondayItemRow);
+    $('#mondayTable').DataTable({searching: true,info: false});
 }
 
 function getMondayBoardItems(boardName){
